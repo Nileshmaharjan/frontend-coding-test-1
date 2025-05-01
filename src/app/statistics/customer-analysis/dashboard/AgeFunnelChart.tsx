@@ -3,8 +3,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import ReactECharts from "echarts-for-react";
 
-interface AgeDistributionResponse {
-  age_distribution: Record<string, number>;
+interface AgeGroupDistributionResponse {
+  age_group_distribution: Record<string, number>;
 }
 
 export function AgeFunnelChart({
@@ -14,45 +14,56 @@ export function AgeFunnelChart({
   startDate?: string;
   endDate?: string;
 }) {
-  const [data, setData] = useState<
-    AgeDistributionResponse["age_distribution"] | null
-  >(null);
+  const [data, setData] = useState<Record<string, number> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch(
-      `https://crm-stats-backend-232897014995.asia-northeast3.run.app/api/v1/stats/business/customers/age-distribution?start_date=${startDate}&end_date=${endDate}`
+      `https://crm-stats-backend-232897014995.asia-northeast3.run.app/api/v1/stats/business/customers/age-group-distribution?start_date=${startDate}&end_date=${endDate}`
     )
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json() as Promise<AgeDistributionResponse>;
+        return res.json() as Promise<AgeGroupDistributionResponse>;
       })
-      .then((json) => setData(json.age_distribution))
+      .then((json) => setData(json.age_group_distribution))
       .catch((err) => setError(err.message));
   }, [startDate, endDate]);
 
-  const order = ["20대 이하", "30대", "40대", "50대", "60대 이상"];
+  const order = ["10대", "20대", "30대", "40대", "50대", "60대 이상"];
   const chartData = useMemo(() => {
     if (!data) return [];
-    return order.map((name) => ({
-      name,
-      value: data[name] ?? 0,
-    }));
+    return order
+      .map((name) => ({ name, value: data[name] ?? 0 }))
+      .sort((a, b) => b.value - a.value);
   }, [data]);
 
   const option = useMemo(
     () => ({
-      tooltip: { trigger: "item", formatter: "{b}: {c}" },
+      tooltip: {
+        trigger: "item",
+        formatter: "{b}: {c}",
+      },
       series: [
         {
+          name: "연령대",
           type: "funnel",
-          left: "10%",
-          width: "80%",
+          left: "15%",
+          right: "15%",
+          top: "10%",
+          bottom: "10%",
           sort: "descending",
-          gap: 2,
+          gap: 4,
+          minSize: "20%",
+          maxSize: "80%",
           label: {
+            show: true,
             position: "inside",
-            formatter: "{b}\n{c}",
+            formatter: "{c}",
+            fontSize: 14,
+            color: "#333",
+          },
+          itemStyle: {
+            borderRadius: 8,
           },
           data: chartData,
         },
@@ -63,5 +74,8 @@ export function AgeFunnelChart({
 
   if (error) return <div style={{ color: "red" }}>Error: {error}</div>;
   if (!data) return <div>Loading…</div>;
-  return <ReactECharts option={option} style={{ height: 240 }} />;
+
+  return (
+    <ReactECharts option={option} style={{ width: "100%", height: 240 }} />
+  );
 }
