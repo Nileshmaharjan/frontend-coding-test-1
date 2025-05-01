@@ -1,5 +1,5 @@
-import TaskStarter from "../components/main/TaskStarter"
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  return <TaskStarter />;
+export default function Home() {
+  redirect("/statistics");
 }

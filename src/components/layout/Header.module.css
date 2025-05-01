@@ -1,0 +1,30 @@
+.header {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .nav {
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;       /* px-8 */
+    height: 3.5rem;        /* h-14 */
+    gap: 1.5rem;           /* space-x-6 */
+  }
+  
+  .navItem {
+    font-size: 0.875rem;   /* text-sm */
+    font-weight: 500;      /* font-medium */
+    color: #4b5563;        /* text-gray-700 */
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .navItem:hover {
+    color: #3b82f6;        /* hover:text-blue-500 */
+  }
+  
+  .active {
+    color: #2563eb;        /* text-blue-600 */
+  }
+  

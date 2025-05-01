@@ -1,5 +1,5 @@
-import StatPlaceholder from "@/components/statistics/StatPlaceholder";
+import { redirect } from "next/navigation";
 
-export default function StatisticsPage() {
-  return <StatPlaceholder />;
+export default function StatisticsIndex() {
+  redirect("/statistics/customer-analysis/dashboard");
 }

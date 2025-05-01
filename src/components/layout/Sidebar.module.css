@@ -1,0 +1,87 @@
+/* Sidebar.module.css */
+
+.sidebar {
+    width: 10rem;      
+    background: white;     
+    border-right: 1px solid white;
+    height: 100vh;
+    padding: 1.5rem 0;
+    overflow-y: auto;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-bottom: 2rem;
+  }
+  
+  /* center all text inside nav */
+  .nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      
+    gap: 1rem;
+  }
+  
+  /* category header (no change except centering) */
+  .category {
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  /* open vs closed styles */
+  .categoryOpen {
+    color: #2563eb;
+  }
+  .categoryClosed {
+    color: #374151;
+  }
+  .categoryClosed:hover {
+    background: #f3f4f6;
+  }
+  
+  /* arrow positioning stays the same */
+  .arrow {
+    margin-left: 0.5rem;
+    transition: transform 0.2s;
+  }
+  
+  /* submenu wrapper, center its children */
+  .submenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;       /* ← center each link */
+    background: #f5f5f5;
+    margin-top: 0.25rem;
+    border-radius: 0.375rem;
+    overflow: hidden;
+  }
+  
+  /* submenu items */
+  .submenuItem {
+    display: block;
+    width: 100%;               /* full width so centering works */
+    padding: 0.75rem 0;
+    text-align: center;        /* ← center text */
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s;
+  }
+  .submenuItem:hover {
+    color: #374151;
+  }
+  
+  /* active submenu item */
+  .submenuItemActive {
+    color: #111827;
+    background: #ffffff;
+    border: 1px solid #10b981;
+  }
+  
