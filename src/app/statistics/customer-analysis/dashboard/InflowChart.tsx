@@ -8,7 +8,7 @@ interface FunnelResponse {
   funnel_distribution: Record<string, number>;
 }
 
-export function InflowChart({
+export function InFlowChart({
   startDate = "2022-02-02",
   endDate = "2025-02-02",
 }: {
